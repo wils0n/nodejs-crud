@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	h2 Tabla de Productos
+	table(border='1')
+
+		tr
+			th Producto
+			th Descripcion
+			th Precio
+			if(productos)
+				each producto in productos
+					tr
+						td 
+							a(href="/producto/"+producto._id.toString()) #{producto.nombre}
+						td #{producto.descripcion}
+						td #{producto.precio}
