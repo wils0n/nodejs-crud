@@ -33,8 +33,9 @@ if ('development' == app.get('env')) {
 app.get('/', producto.index);
 app.get('/producto/:id', producto.show_edit);
 app.post('/producto/:id', producto.update);
-//app.get('/delete-producto/:id', producto.remove);
-//app.post('/nuevo-producto', producto.create);
+app.get('/delete-producto/:id', producto.remove);
+app.post('/nuevo-producto/', producto.create);
+app.get('/nuevo-producto/', producto.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

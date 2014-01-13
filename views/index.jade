@@ -15,3 +15,7 @@ block content
 							a(href="/producto/"+producto._id.toString()) #{producto.nombre}
 						td #{producto.descripcion}
 						td #{producto.precio}
+						td
+							a(href="/delete-producto/"+producto._id.toString()) Borrar
+	p
+		a(href="/nuevo-producto/") Nuevo Producto

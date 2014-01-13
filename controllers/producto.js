@@ -65,3 +65,55 @@ exports.update = function(req, res, next){
 	});
 
 };
+
+exports.remove = function(req, res, next){
+	var id = req.params.id
+
+	Producto.findById(id, function(err, producto){
+		if (err)
+			console.log(err);
+		if (!producto)
+			return res.send("Invalid ID")
+
+		producto.remove(function(err){
+			if (err)
+				console.log(err);
+			return res.redirect("/");
+		});
+	});
+}
+
+exports.create = function(req, res, next){
+	if(req.method == 'GET')
+		return res.render('show_edit', {title: 'Nuevo producto', producto:{}});
+	else if (req.method == 'POST'){
+		console.log(req.body);
+		var nombre = req.body.nombre || '';
+		var descripcion = req.body.descripcion || '';
+		var precio = req.body.precio || '';
+
+		if (nombre == '' || descripcion == ''){
+			console.log ('ERROR:  Campos vacios');
+			return res.send("Hay campos vacios, revisar");
+		}
+
+		if (isNaN(precio)){
+			console.log('ERROR: Precio no es un numero');
+			return res.send("Precio no es un numero");
+		}
+
+		var producto = new Producto({
+			nombre: nombre,
+			descripcion: descripcion,
+			precio: precio
+		});
+
+		producto.save(function(err){
+			if (err){
+				console.log(err);
+				return  next(err);
+			}
+			return res.redirect('/');
+		});
+	}
+}
